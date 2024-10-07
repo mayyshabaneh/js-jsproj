@@ -1,0 +1,85 @@
+const prompt = require("prompt-sync")();
+let users = [];
+let posts = [];
+
+function createUser(firstName, lastName, phone) {
+  let user = {
+    firstName: firstName,
+    lastName: lastName,
+    phone: phone,
+  };
+  users.push(user);
+  return user;
+}
+
+function createPost(id, title, desc, createdBy, createdAt) {
+  let post = {
+    id: id,
+    title: title,
+    desc: desc,
+    createdBy: createdBy,
+    createdAt: createdAt,
+  };
+  posts.push(post);
+  return post;
+}
+
+let x = true;
+
+do {
+  console.log(
+    "1- create user \n2- logIn \n3- view data and logOut \n4- end program"
+  );
+  let choice = prompt("please enter Your Choice: ");
+  switch (choice) {
+    case "1":
+      let firstName = prompt("enter userName: ");
+      let nameCheck = users.find((o) => o.firstName === firstName);
+      if (nameCheck != null) {
+        firstName = prompt("your input repeated \n enter userName: ");
+      }
+      let lastName = prompt("enter lastName: ");
+      let phone = prompt("enter user phone: ");
+      const user = createUser(firstName, lastName, phone);
+      console.log("your inputs were: ", user);
+      break;
+    case "2":
+      let loginName = prompt("enter your logIn name: ");
+      let username = users.find((o) => o.firstName === loginName);
+      if (username != null) {
+        let id = prompt("enter post ID: ");
+        let title = prompt("enter your title: ");
+        let desc = prompt("enter your post description: ");
+        let createdBy = username.firstName;
+        let createdAt = Date.now();
+        let dd = new Date(createdAt).toISOString();
+        const post = createPost(id, title, desc, createdBy, dd);
+        console.log("your inputs were: ", post);
+      } else {
+        console.log("your input is wrong");
+      }
+      break;
+    case "3":
+      console.log(
+        "input your choise: \n 1- view users \n 2- view posts \n 3-logout"
+      );
+      let input = prompt("your choise : ");
+      switch (input) {
+        case "1":
+          console.log(users);
+          break;
+        case "2":
+          console.log(posts);
+          break;
+        case "3":
+          break;
+      }
+
+      break;
+    case "4":
+      x = false;
+      break;
+    default:
+      console.log("Invalid choice, please try again.");
+  }
+} while (x);
