@@ -1,0 +1,75 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="form.css" />
+  </head>
+  <body>
+    <form action="get" id="form1">
+      <label>width</label>
+      <input type="text" placeholder="width" class="width" id="input1" />
+      <label>height</label>
+      <input type="text" placeholder="height" class="height" />
+      <label>color</label>
+      <input type="text" placeholder="color" class="color" />
+      <label>borderWi</label>
+      <input type="text" placeholder="border width" id="borderw" />
+      <label>borderC</label>
+      <input type="text" placeholder="border color" id="borderc" />
+      <label for="">text</label>
+      <input type="text" name="" placeholder="your text" id="text" />
+      <input type="button" value="submit" class="btn input-btn" />
+      <input type="file" name="xs" id="link" class="input-btn" />
+    </form>
+    <div class="box" id="box"></div>
+    <script>
+      console.log(document.getElementById("link").files);
+
+      function addtext() {
+        let texxt = document.getElementById("text").value;
+        const textDiv = document.createElement("p");
+        textDiv.innerHTML = `${texxt}`;
+        document.getElementById("box").appendChild(textDiv);
+      }
+      function getval() {
+        let widthinput = document.getElementsByClassName("width")[0];
+        let width = widthinput.value;
+        let heightinput = document.getElementsByClassName("height")[0];
+        let height = heightinput.value;
+        let colorinput = document.getElementsByClassName("color")[0];
+        let color = colorinput.value;
+        let borderw = document.getElementById("borderw");
+        let borderwidth = borderw.value;
+        let borderc = document.getElementById("borderc");
+        let bordercolor = borderc.value;
+        setval(width, height, color, borderw, borderc);
+      }
+
+      function setval(width, height, color, borderw, borderc) {
+        let divBox = document.getElementsByClassName("box")[0];
+        divBox.style.width = width + "px";
+        divBox.style.height = height + "px";
+        divBox.style.borderWidth = borderw + "px";
+        divBox.style.borderStyle = "dashed";
+        divBox.style.borderColor = borderc;
+
+        if (color) {
+          divBox.style.backgroundColor = color;
+        } else {
+          let input = document.getElementById("link");
+          // console.log(srcimg.files[0].name);
+          let img = URL.createObjectURL(input.files[0]);
+          console.log(img);
+
+          divBox.style.backgroundImage = `url(${img})`;
+        }
+        addtext();
+      }
+      const btnsub = document.getElementsByClassName("btn")[0];
+      if (btnsub) {
+        btnsub.addEventListener("click", () => getval());
+      }
+    </script>
+  </body>
+</html>
